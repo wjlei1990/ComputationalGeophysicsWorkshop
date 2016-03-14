@@ -21,5 +21,5 @@ For people using desktops in the NMC, they can connect to either ports. For peop
 I have put a file at `/scratch/fast/lei/guest_users.txt` in case you need it.
 
 TODO:
-1. Trelis and Paraview is not yet installed on the PCs there. We need to do it tomorrow.
-2. I might miss one or two Macs to install the Xquartz. I will do it tomorrow.
+  1. Trelis and Paraview is not yet installed on the PCs there. We need to do it tomorrow.
+  2. I might miss one or two Macs to install the Xquartz. I will do it tomorrow.
