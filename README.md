@@ -1,4 +1,5 @@
-# Computational Geophysics Workshop, Princeton, March 15th - 16th
+# Computational Geophysics Workshop
+Princeton, March 15th - 16th
 
 ### Time agenda
 To check out the time agenda and room schedule, please check out the [schedule](schedule.md).
