@@ -15,3 +15,6 @@ There are two ports available for the mcmillan server.
   * mcmillan-vis
 
 For people using desktops in the NMC, they can connect to either ports. For people using wireless network, they have to ssh through mcmillan-vis. Don't forget to use `-X` to activiate X11 environment.
+
+##### 4. Account information
+I have put a file at `/scratch/fast/lei/guest_users.txt` in case you need it.
