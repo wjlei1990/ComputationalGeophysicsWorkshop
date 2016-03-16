@@ -14,8 +14,8 @@ This is a simple instruction about how to quickly run the SPECFEM3D_GLOBE.
   ```
 
 #### 2. Checkout out what is inside the package, for example, see what is inside in the following directories:
-  * `DATA`
-  * `src`
+  * `DATA`: `CMTSOLUTION`, `STATIONS`, `Par_file`
+  * `src`: just a quick look
 
 #### 3. Prepare the input file
   * `DATA/CMTSOLUTION`
@@ -26,7 +26,7 @@ This is a simple instruction about how to quickly run the SPECFEM3D_GLOBE.
     This part requires special attention, I will guide you through the `Par_file`.
 
 #### 4. Compile the code
-  1. check out your system environment and load necessary modules
+  1. check out your system environment and load necessary modules.
     Sine specfem runs in parallel and thus you need to compile the package with parallel compiler. Suppose you are going to use gnu compiler on mcmillan, type this in the terminal:
       ```
       module load openmpi/gcc
@@ -41,7 +41,9 @@ This is a simple instruction about how to quickly run the SPECFEM3D_GLOBE.
     ```
     make
     ```
-  See what has been generated inside `bin`
+  See what has been generated inside directory `bin`.
+
+---
 
 #### 5. Generate the mesh using internal mesher.
 We are going to use the excutable: `bin/xmeshfem3D`, which is an internal mesher embedded in the specfem3d_globe. Then number of processers you are going to use is determined by parameter in the `DATA/Par_file`:
@@ -49,7 +51,34 @@ We are going to use the excutable: `bin/xmeshfem3D`, which is an internal mesher
   Number_of_processors = NPROC_XI * NPROC_ETA * NCHUNKS
   ```
 
-Then you are going to write a job submission script to submit the job to the queue.
+Then you are going to write a job submission script to submit the job to the queue. This script depands on the queue system on your cluster, for example, whether it is `PBS` or `SLURM` systerm. But an example for `SLURM` on mcmillan would be:
+```
+#!/bin/bash
+#SBATCH -N 1 # node count
+#SBATCH --ntasks-per-node=6
+#SBATCH -t 1:00:00
+
+# Load openmpi environment
+module load openmpi/gcc
+
+mpiexec -n 4 ./bin/xmeshfem3D
+```
+Name this file as "job_mesh.bash" and place it at the specfem3d_globe home directory.
+
+Using `sbatch job_mesh.bash` to submit the job.
 
 #### 6. Launch the simulation.
 We are going to use the excutable: `bin/xspecfem3D`. The number of processors you are going to use is the same as the mesher. Then you are going to write a job submission script to submit the job to the queue.
+```
+#!/bin/bash
+#SBATCH -N 1 # node count
+#SBATCH --ntasks-per-node=6
+#SBATCH -t 1:00:00
+
+# Load openmpi environment
+module load openmpi/gcc
+
+mpiexec -n 4 ./bin/xspecfem3D
+```
+
+Name this file as `job_solver.bash` and using `sbatch job_solver.bash` to submit the job.
