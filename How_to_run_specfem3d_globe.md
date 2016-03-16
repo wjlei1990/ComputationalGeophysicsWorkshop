@@ -27,16 +27,19 @@ This is a simple instruction about how to quickly run the SPECFEM3D_GLOBE.
 
 #### 4. Compile the code
   1. check out your system environment and load necessary modules.
-    Sine specfem runs in parallel and thus you need to compile the package with parallel compiler. Suppose you are going to use gnu compiler on mcmillan, type this in the terminal:
-      ```
-      module load openmpi/gcc
-      ```
+    Sine specfem runs in parallel and thus you need to compile the package with parallel compiler.
+    Suppose you are going to use gnu compiler on mcmillan, type this in the terminal:
+    ```
+    module load openmpi/gcc
+    ```
+    
     Then type in this terminal to check the C and Fortran compiler: `mpicc --version` and then `mpif90 --version`. I assume you won't see any error messages
   1. configure to generate make file. In terminal:
     ```
     ./configure FC=mpif90 CC=mpicc
     ```
     This will generate the `Makefile`.
+    
   2. compile the code using `Makefile`. In terminal:
     ```
     make
