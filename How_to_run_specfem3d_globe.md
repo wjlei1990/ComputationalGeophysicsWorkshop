@@ -67,9 +67,9 @@ module load openmpi/gcc
 
 mpiexec -n 4 ./bin/xmeshfem3D
 ```
-Name this file as "job_mesh.bash" and place it at the specfem3d_globe home directory.
+Name this file as `job_mesh.bash` and place it at the specfem3d_globe home directory.
 
-Using `sbatch job_mesh.bash` to submit the job.
+Using `sbatch job_mesh.bash` to submit the job and use `squeue` to check you job status. After job finished, check out in `OUTPUT_FILES` and `DATABASES_MPI` to see what has been generated.
 
 #### 6. Launch the simulation.
 We are going to use the excutable: `bin/xspecfem3D`. The number of processors you are going to use is the same as the mesher. Then you are going to write a job submission script to submit the job to the queue.
@@ -78,6 +78,7 @@ We are going to use the excutable: `bin/xspecfem3D`. The number of processors yo
 #SBATCH -N 1 # node count
 #SBATCH --ntasks-per-node=6
 #SBATCH -t 1:00:00
+#SBATCH --job-name=specfem_mesher
 
 # Load openmpi environment
 module load openmpi/gcc
@@ -85,4 +86,4 @@ module load openmpi/gcc
 mpiexec -n 4 ./bin/xspecfem3D
 ```
 
-Name this file as `job_solver.bash` and using `sbatch job_solver.bash` to submit the job.
+Name this file as `job_solver.bash` and using `sbatch job_solver.bash` to submit the job. After job finished, checkout in `OUTPUT_FILES` to see what has been generated
