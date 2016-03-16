@@ -54,12 +54,13 @@ We are going to use the excutable: `bin/xmeshfem3D`, which is an internal mesher
   Number_of_processors = NPROC_XI * NPROC_ETA * NCHUNKS
   ```
 
-Then you are going to write a job submission script to submit the job to the queue. This script depands on the queue system on your cluster, for example, whether it is `PBS` or `SLURM` systerm. But an example for `SLURM` on mcmillan would be:
+Then you are going to write a job submission script to submit the job to the queue. This script depands on the queue system on your cluster, for example, whether it is `PBS` or `SLURM` systerm. Assuming you set `NCHUNKS=1`, `NPROC_XI=2` and `NPROC_ETA=2`, you can see that you need to use *4* processors here. An example for `SLURM` on mcmillan would be:
 ```
 #!/bin/bash
 #SBATCH -N 1 # node count
 #SBATCH --ntasks-per-node=6
 #SBATCH -t 1:00:00
+#SBATCH --job-name=specfem_mesher
 
 # Load openmpi environment
 module load openmpi/gcc
