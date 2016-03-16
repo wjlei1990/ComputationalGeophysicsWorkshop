@@ -8,7 +8,7 @@ This is a simple instruction about how to quickly run the SPECFEM3D_GLOBE.
   git clone --recursive --branch devel https://github.com/geodynamics/specfem3d_globe.git/
   ```
 
-2. For this workshop, you shall git clone from my local repo:
+2. **For this workshop**, you shall git clone from my local repo. First, log into mcmillan with you account and type the command in the terminal:
   ```
   cd ~; git clone /scratch/fast/lei/specfem3d_globe; cd specfem3d_globe
   ```
@@ -27,17 +27,29 @@ This is a simple instruction about how to quickly run the SPECFEM3D_GLOBE.
 
 #### 4. Compile the code
   1. check out your system environment and load necessary modules
-    Suppose you are going to use gnu compiler on mcmillan:
+    Sine specfem runs in parallel and thus you need to compile the package with parallel compiler. Suppose you are going to use gnu compiler on mcmillan, type this in the terminal:
       ```
       module load openmpi/gcc
       ```
-    Then type in this command to check the C and Fortran compiler: `mpicc --version` and then `mpif90 --version`. I assume that you won't see any error messages pops out.
-      ```
-  1. configure to generate make file
-  2. compile the code using `Makefile`
+    Then type in this terminal to check the C and Fortran compiler: `mpicc --version` and then `mpif90 --version`. I assume you won't see any error messages
+  1. configure to generate make file. In terminal:
+    ```
+    ./configure FC=mpif90 CC=mpicc
+    ```
+    This will generate the `Makefile`.
+  2. compile the code using `Makefile`. In terminal:
+    ```
+    make
+    ```
+  See what has been generated inside `bin`
 
-See what has been generated inside `bin`
+#### 5. Generate the mesh using internal mesher.
+We are going to use the excutable: `bin/xmeshfem3D`, which is an internal mesher embedded in the specfem3d_globe. Then number of processers you are going to use is determined by parameter in the `DATA/Par_file`:
+  ```
+  Number_of_processors = NPROC_XI * NPROC_ETA * NCHUNKS
+  ```
 
-#### 5. Generate the mesh using internal mesher
+Then you are going to write a job submission script to submit the job to the queue.
 
 #### 6. Launch the simulation.
+We are going to use the excutable: `bin/xspecfem3D`. The number of processors you are going to use is the same as the mesher. Then you are going to write a job submission script to submit the job to the queue.
